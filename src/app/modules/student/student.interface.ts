@@ -23,7 +23,7 @@ export type TLocalGuardian = {
 };
 
 export type TStudent = {
-  id?: string;
+  id: string;
   user: Types.ObjectId;
 
   name: TUserName;
@@ -39,6 +39,7 @@ export type TStudent = {
   guardian: TGuardian;
   localGuardian: TLocalGuardian;
   profileImg?: string | undefined;
+  admissionSemester: Types.ObjectId;
   isDeleted: boolean;
 };
 

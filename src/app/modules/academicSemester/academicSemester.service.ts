@@ -21,8 +21,34 @@ const getAcademicSemesterService = async () => {
   const result = await AcademicSemester.find();
   return result;
 };
+const getSingleAcademicSemesterService = async (id: string) => {
+  const result = await AcademicSemester.findOne({ id });
+  return result;
+};
+const updateSingleAcademicSemesterService = async (
+  id: string,
+  name: string,
+  year: string,
+  code: string,
+  startMonth: string,
+  endMonth: string
+) => {
+  const result = await AcademicSemester.updateOne(
+    { id },
+    {
+      name: name,
+      year: year,
+      code: code,
+      startMonth: startMonth,
+      endMonth: endMonth,
+    }
+  );
+  return result;
+};
 
 export const AcademicSemesterService = {
   createAcademicSemesterIntoDB,
   getAcademicSemesterService,
+  getSingleAcademicSemesterService,
+  updateSingleAcademicSemesterService,
 };

@@ -41,6 +41,7 @@ const StudentZodSchema = zod_1.z.object({
             permanentAddress: zod_1.z.string().min(1),
             guardian: GuardianSchema,
             localGuardian: LocalGuardianSchema,
+            admissionSemester: zod_1.z.string(),
             profileImg: zod_1.z.string().optional(),
         }),
     }),

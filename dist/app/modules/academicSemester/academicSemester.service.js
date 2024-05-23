@@ -27,7 +27,23 @@ const getAcademicSemesterService = () => __awaiter(void 0, void 0, void 0, funct
     const result = yield academicSemester_model_1.AcademicSemester.find();
     return result;
 });
+const getSingleAcademicSemesterService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield academicSemester_model_1.AcademicSemester.findOne({ id });
+    return result;
+});
+const updateSingleAcademicSemesterService = (id, name, year, code, startMonth, endMonth) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield academicSemester_model_1.AcademicSemester.updateOne({ id }, {
+        name: name,
+        year: year,
+        code: code,
+        startMonth: startMonth,
+        endMonth: endMonth,
+    });
+    return result;
+});
 exports.AcademicSemesterService = {
     createAcademicSemesterIntoDB,
     getAcademicSemesterService,
+    getSingleAcademicSemesterService,
+    updateSingleAcademicSemesterService,
 };

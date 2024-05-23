@@ -41,7 +41,7 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 
 export const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>(
   {
-    id: { type: String },
+    id: { type: String, unique: true, required: true },
     user: {
       type: Schema.Types.ObjectId,
       required: true,
@@ -79,6 +79,7 @@ export const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>(
       required: true,
     },
     profileImg: { type: String },
+    admissionSemester: { type: Schema.Types.ObjectId },
     isDeleted: { type: Boolean, default: false },
   },
   {

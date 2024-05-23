@@ -39,7 +39,7 @@ const localGuardianSchema = new mongoose_1.Schema({
     address: { type: String, required: true },
 });
 exports.studentSchema = new mongoose_1.Schema({
-    id: { type: String },
+    id: { type: String, unique: true, required: true },
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: true,
@@ -76,6 +76,7 @@ exports.studentSchema = new mongoose_1.Schema({
         required: true,
     },
     profileImg: { type: String },
+    admissionSemester: { type: mongoose_1.Schema.Types.ObjectId },
     isDeleted: { type: Boolean, default: false },
 }, {
     toJSON: {

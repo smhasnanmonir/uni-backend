@@ -35,7 +35,34 @@ const getAcademicSemesterController = (0, catchAsync_1.default)((req, res) => __
         data: result,
     });
 }));
+const getSingleAcademicSemesterController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params._id;
+    const result = yield academicSemester_service_1.AcademicSemesterService.getSingleAcademicSemesterService(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Academic Semester fetched successfully",
+        data: result,
+    });
+}));
+const updateSingleAcademicSemesterController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params._id;
+    const name = req.body.name;
+    const year = req.body.year;
+    const code = req.body.code;
+    const startMonth = req.body.startMonth;
+    const endMonth = req.body.endMonth;
+    const result = yield academicSemester_service_1.AcademicSemesterService.updateSingleAcademicSemesterService(id, name, year, code, startMonth, endMonth);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Academic Semester fetched successfully",
+        data: result,
+    });
+}));
 exports.AcademicSemesterController = {
     createAcademicSemester,
     getAcademicSemesterController,
+    getSingleAcademicSemesterController,
+    updateSingleAcademicSemesterController,
 };
