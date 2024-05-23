@@ -8,25 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("./config"));
-const port = 3000;
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect(config_1.default.mongoDB);
-            app_1.default.listen(port, () => {
-                console.log(`Example app listening on port ${port}`);
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
+exports.studentServices = void 0;
+const student_model_1 = require("./student.model");
+const getAllStudentsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_model_1.Student.find();
+    return result;
+});
+const getSingleStudentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_model_1.Student.findOne({ id });
+    return result;
+});
+const deleteSingleStudentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_model_1.Student.updateOne({ id }, {
+        isDeleted: true,
     });
-}
-main();
+    return result;
+});
+exports.studentServices = {
+    getAllStudentsFromDB,
+    getSingleStudentFromDB,
+    deleteSingleStudentFromDB,
+};
