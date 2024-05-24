@@ -60,6 +60,7 @@ const deleteSingleStudentController = (0, catchAsync_1.default)((req, res, next)
         });
     }
 }));
+//export controllers
 exports.studentControllers = {
     getStudentController,
     getSingleStudentController,

@@ -11,20 +11,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.studentServices = void 0;
 const student_model_1 = require("./student.model");
+//fetch all students from database
 const getAllStudentsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield student_model_1.Student.find();
     return result;
 });
+//fetch single student
 const getSingleStudentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield student_model_1.Student.findOne({ id });
     return result;
 });
+//delete api
 const deleteSingleStudentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield student_model_1.Student.updateOne({ id }, {
         isDeleted: true,
     });
     return result;
 });
+//file export
 exports.studentServices = {
     getAllStudentsFromDB,
     getSingleStudentFromDB,

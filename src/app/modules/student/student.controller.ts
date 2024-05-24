@@ -55,6 +55,8 @@ const deleteSingleStudentController: RequestHandler = catchAsync(
   }
 );
 
+//export controllers
+
 export const studentControllers = {
   getStudentController,
   getSingleStudentController,

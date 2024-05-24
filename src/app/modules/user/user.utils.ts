@@ -1,7 +1,7 @@
 import { TAcademicSemester } from "../academicSemester/academicSemester.interface";
 import { User } from "./user.model";
 
-const findLastStudent = async () => {
+const findLastStudentId = async () => {
   const lastStudent = await User.findOne(
     {
       role: "student",
@@ -20,8 +20,19 @@ const findLastStudent = async () => {
 };
 
 export const generateStudentId = async (payload: TAcademicSemester) => {
-  const currentId =
-    (await findLastStudent()) || (0).toString().padStart(4, "0");
+  let currentId = (0).toString().padStart(4, "0");
+  const lastStudentId = await findLastStudentId();
+  const lastStudentSemesterCode = lastStudentId?.substring(4, 6);
+  const lastStudentYear = lastStudentId?.substring(0, 4);
+  const currentSemesterCode = payload.code;
+  const currentYear = payload.year;
+  if (
+    lastStudentId &&
+    lastStudentSemesterCode === currentSemesterCode &&
+    lastStudentYear === currentYear
+  ) {
+    currentId = lastStudentId.substring(6);
+  }
   let increment_id = (Number(currentId) + 1).toString();
   increment_id = `${payload.year}${payload.code}${increment_id}`;
   return increment_id;

@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateStudentId = void 0;
 const user_model_1 = require("./user.model");
-const findLastStudent = () => __awaiter(void 0, void 0, void 0, function* () {
+const findLastStudentId = () => __awaiter(void 0, void 0, void 0, function* () {
     const lastStudent = yield user_model_1.User.findOne({
         role: "student",
     }, {
@@ -25,7 +25,17 @@ const findLastStudent = () => __awaiter(void 0, void 0, void 0, function* () {
     return (lastStudent === null || lastStudent === void 0 ? void 0 : lastStudent.id) ? lastStudent.id.slice(6) : undefined;
 });
 const generateStudentId = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const currentId = (yield findLastStudent()) || (0).toString().padStart(4, "0");
+    let currentId = (0).toString().padStart(4, "0");
+    const lastStudentId = yield findLastStudentId();
+    const lastStudentSemesterCode = lastStudentId === null || lastStudentId === void 0 ? void 0 : lastStudentId.substring(4, 6);
+    const lastStudentYear = lastStudentId === null || lastStudentId === void 0 ? void 0 : lastStudentId.substring(0, 4);
+    const currentSemesterCode = payload.code;
+    const currentYear = payload.year;
+    if (lastStudentId &&
+        lastStudentSemesterCode === currentSemesterCode &&
+        lastStudentYear === currentYear) {
+        currentId = lastStudentId.substring(6);
+    }
     let increment_id = (Number(currentId) + 1).toString();
     increment_id = `${payload.year}${payload.code}${increment_id}`;
     return increment_id;

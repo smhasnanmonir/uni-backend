@@ -4,6 +4,8 @@ import {
   AcademicSemesterName,
   months,
 } from "./academicSemester.const";
+
+//validator for Academic Semester
 const academicSemesterSchemaValidation = z.object({
   body: z.object({
     name: z.enum([...AcademicSemesterName] as [string, ...string[]]),
