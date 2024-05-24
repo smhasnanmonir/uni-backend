@@ -18,5 +18,9 @@ router.get(
   "/get-single-academic-faculty/:id",
   academicFacultyController.getSingleAcademicFaculty
 );
+router.patch(
+  "/update-single-academic-faculty/:id",
+  academicFacultyController.updateSingleAcademicSemesterController
+);
 
 export const academicFacultyRoutes = router;

@@ -36,8 +36,23 @@ const getSingleAcademicFaculty = catchAsync(async (req, res) => {
   });
 });
 
+const updateSingleAcademicSemesterController = catchAsync(async (req, res) => {
+  const id: string = req.params.id;
+  const name: string = req.body.name;
+  const result = await academicFacultyServices.updateAcademicFaculty(id, name);
+  if (result.modifiedCount === 1) {
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Academic Faculty updated successfully",
+      data: result,
+    });
+  }
+});
+
 export const academicFacultyController = {
   createAcademicFacultyController,
   getAcademicFacultyController,
   getSingleAcademicFaculty,
+  updateSingleAcademicSemesterController,
 };

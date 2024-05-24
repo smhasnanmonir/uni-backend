@@ -16,8 +16,21 @@ const getSingleFacultyFromDB = async (_id: string) => {
   return result;
 };
 
+const updateAcademicFaculty = async (id: string, name: string) => {
+  const result = await AcademicFaculty.updateOne(
+    {
+      _id: id,
+    },
+    {
+      name: name,
+    }
+  );
+  return result;
+};
+
 export const academicFacultyServices = {
   createAcademicFacultyIntoDB,
   getFacultiesFromDB,
   getSingleFacultyFromDB,
+  updateAcademicFaculty,
 };
