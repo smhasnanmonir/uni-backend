@@ -79,8 +79,17 @@ export const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>(
       required: true,
     },
     profileImg: { type: String },
-    admissionSemester: { type: Schema.Types.ObjectId },
+    admissionSemester: {
+      type: Schema.Types.ObjectId,
+      ref: "AcademicSemester",
+      required: true,
+    },
     isDeleted: { type: Boolean, default: false },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: "AcademicDepartment",
+      required: true,
+    },
   },
   {
     toJSON: {
