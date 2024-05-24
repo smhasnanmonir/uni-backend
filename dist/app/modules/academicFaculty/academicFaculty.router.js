@@ -12,4 +12,5 @@ const router = express_1.default.Router();
 router.post("/create-academic-faculty", (0, validateRequest_1.default)(academicFaculty_validation_1.academicFacultyZod.academicFacultyValidation), academicFaculty_controller_1.academicFacultyController.createAcademicFacultyController);
 router.get("/get-academic-faculty", academicFaculty_controller_1.academicFacultyController.getAcademicFacultyController);
 router.get("/get-single-academic-faculty/:id", academicFaculty_controller_1.academicFacultyController.getSingleAcademicFaculty);
+router.patch("/update-single-academic-faculty/:id", academicFaculty_controller_1.academicFacultyController.updateSingleAcademicSemesterController);
 exports.academicFacultyRoutes = router;

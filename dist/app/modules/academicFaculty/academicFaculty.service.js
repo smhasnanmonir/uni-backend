@@ -23,8 +23,17 @@ const getSingleFacultyFromDB = (_id) => __awaiter(void 0, void 0, void 0, functi
     const result = yield academicFaculty_model_1.AcademicFaculty.findOne({ _id });
     return result;
 });
+const updateAcademicFaculty = (id, name) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield academicFaculty_model_1.AcademicFaculty.updateOne({
+        _id: id,
+    }, {
+        name: name,
+    });
+    return result;
+});
 exports.academicFacultyServices = {
     createAcademicFacultyIntoDB,
     getFacultiesFromDB,
     getSingleFacultyFromDB,
+    updateAcademicFaculty,
 };

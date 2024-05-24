@@ -76,8 +76,17 @@ exports.studentSchema = new mongoose_1.Schema({
         required: true,
     },
     profileImg: { type: String },
-    admissionSemester: { type: mongoose_1.Schema.Types.ObjectId },
+    admissionSemester: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "AcademicSemester",
+        required: true,
+    },
     isDeleted: { type: Boolean, default: false },
+    academicDepartment: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "AcademicDepartment",
+        required: true,
+    },
 }, {
     toJSON: {
         virtuals: true,

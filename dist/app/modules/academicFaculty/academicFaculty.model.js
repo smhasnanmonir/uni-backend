@@ -8,5 +8,7 @@ exports.academicFacultySchema = new mongoose_1.Schema({
         required: true,
         trim: true,
     },
+}, {
+    timestamps: true,
 });
-exports.AcademicFaculty = (0, mongoose_1.model)("Faculties", exports.academicFacultySchema);
+exports.AcademicFaculty = (0, mongoose_1.model)("AcademicFaculty", exports.academicFacultySchema);

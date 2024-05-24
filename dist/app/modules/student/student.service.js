@@ -13,12 +13,28 @@ exports.studentServices = void 0;
 const student_model_1 = require("./student.model");
 //fetch all students from database
 const getAllStudentsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield student_model_1.Student.find();
+    const result = yield student_model_1.Student.find()
+        .populate("admissionSemester")
+        .populate({
+        path: "academicDepartment",
+        populate: {
+            path: "academicFaculty",
+        },
+    })
+        .populate("user");
     return result;
 });
 //fetch single student
 const getSingleStudentFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield student_model_1.Student.findOne({ id });
+    const result = yield student_model_1.Student.findOne({ id })
+        .populate("admissionSemester")
+        .populate({
+        path: "academicDepartment",
+        populate: {
+            path: "academicFaculty",
+        },
+    })
+        .populate("user");
     return result;
 });
 //delete api
