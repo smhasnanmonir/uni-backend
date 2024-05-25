@@ -14,8 +14,6 @@ const user_service_1 = require("./user.service");
 const createStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { password, student: studentData } = req.body;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        // const zodParseData: any = StudentZodSchema.parse(studentData);
         const result = yield user_service_1.userService.createStudentIntoDB(password, studentData);
         res.status(200).json({
             success: true,

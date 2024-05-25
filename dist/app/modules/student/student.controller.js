@@ -16,7 +16,7 @@ exports.studentControllers = void 0;
 const student_service_1 = require("./student.service");
 const catchAsync_1 = __importDefault(require("../../middleware/catchAsync"));
 const getStudentController = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield student_service_1.studentServices.getAllStudentsFromDB();
+    const result = yield student_service_1.studentServices.getAllStudentsFromDB(req.query);
     res.status(200).json({
         success: true,
         message: "Students fetched successfully",
@@ -60,9 +60,29 @@ const deleteSingleStudentController = (0, catchAsync_1.default)((req, res, next)
         });
     }
 }));
+//update student
+const updateSingleStudentController = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const result = yield student_service_1.studentServices.updateSingleStudentFromDB(id, req.body);
+    if (result) {
+        res.status(200).json({
+            success: true,
+            message: "Student deleted successfully",
+            data: result,
+        });
+    }
+    else {
+        res.status(404).json({
+            success: false,
+            message: "Student not found, no student deleted",
+            data: [],
+        });
+    }
+}));
 //export controllers
 exports.studentControllers = {
     getStudentController,
     getSingleStudentController,
     deleteSingleStudentController,
+    updateSingleStudentController,
 };

@@ -4,10 +4,6 @@ import { userService } from "./user.service";
 const createStudent: RequestHandler = async (req, res, next) => {
   try {
     const { password, student: studentData } = req.body;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // const zodParseData: any = StudentZodSchema.parse(studentData);
-
     const result = await userService.createStudentIntoDB(password, studentData);
     res.status(200).json({
       success: true,

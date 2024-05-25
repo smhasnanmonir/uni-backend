@@ -10,5 +10,6 @@ const router = express_1.default.Router();
 //will call controller
 router.get("/", student_controller_1.studentControllers.getStudentController); //fetch all student
 router.get("/:id", student_controller_1.studentControllers.getSingleStudentController); //fetches a single student
+router.patch("/update-student/:id", student_controller_1.studentControllers.updateSingleStudentController); //update a single student
 router.delete("/:id", student_controller_1.studentControllers.deleteSingleStudentController); //delete a single student
 exports.studentRoutes = router;

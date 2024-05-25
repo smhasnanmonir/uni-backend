@@ -5,7 +5,7 @@ import catchAsync from "../../middleware/catchAsync";
 
 const getStudentController: RequestHandler = catchAsync(
   async (req, res, next) => {
-    const result = await studentServices.getAllStudentsFromDB();
+    const result = await studentServices.getAllStudentsFromDB(req.query);
     res.status(200).json({
       success: true,
       message: "Students fetched successfully",
@@ -54,6 +54,29 @@ const deleteSingleStudentController: RequestHandler = catchAsync(
     }
   }
 );
+//update student
+const updateSingleStudentController: RequestHandler = catchAsync(
+  async (req, res, next) => {
+    const id: string = req.params.id;
+    const result = await studentServices.updateSingleStudentFromDB(
+      id,
+      req.body
+    );
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: "Student deleted successfully",
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Student not found, no student deleted",
+        data: [],
+      });
+    }
+  }
+);
 
 //export controllers
 
@@ -61,4 +84,5 @@ export const studentControllers = {
   getStudentController,
   getSingleStudentController,
   deleteSingleStudentController,
+  updateSingleStudentController,
 };

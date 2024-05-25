@@ -18,31 +18,49 @@ const academicSemester_model_1 = require("../academicSemester/academicSemester.m
 const student_model_1 = require("../student/student.model");
 const user_model_1 = require("./user.model");
 const user_utils_1 = require("./user.utils");
+const mongoose_1 = __importDefault(require("mongoose"));
 const createStudentIntoDB = (password, payload) => __awaiter(void 0, void 0, void 0, function* () {
     // set student role
     const userData = {};
     const admissionSemester = yield academicSemester_model_1.AcademicSemester.findById(payload.admissionSemester);
-    if (admissionSemester) {
-        userData.id = yield (0, user_utils_1.generateStudentId)(admissionSemester);
+    //transaction and rollback
+    const session = yield mongoose_1.default.startSession();
+    try {
+        session.startTransaction();
+        if (admissionSemester) {
+            userData.id = yield (0, user_utils_1.generateStudentId)(admissionSemester);
+        }
+        else {
+            console.error("Admission semester is null");
+            return null;
+        }
+        if (!password) {
+            userData.password = config_1.default.defaultPassword;
+        }
+        else {
+            userData.password = password;
+        }
+        userData.role = "student";
+        const result = yield user_model_1.User.create([userData], { session });
+        if (!result) {
+            throw new Error("User Failed");
+        }
+        //create a new student
+        if (result.length) {
+            payload.id = result[0].id;
+            payload.user = result[0]._id;
+            const newStudent = yield student_model_1.Student.create([payload], { session });
+            if (!newStudent) {
+                throw new Error("New student Failed");
+            }
+            yield session.commitTransaction();
+            yield session.endSession();
+            return newStudent;
+        }
     }
-    else {
-        console.error("Admission semester is null");
-        return null;
-    }
-    if (!password) {
-        userData.password = config_1.default.defaultPassword;
-    }
-    else {
-        userData.password = password;
-    }
-    userData.role = "student";
-    const result = yield user_model_1.User.create(userData);
-    //create a new student
-    if (Object.keys(result).length) {
-        payload.id = result.id;
-        payload.user = result._id;
-        const newStudent = yield student_model_1.Student.create(payload);
-        return newStudent;
+    catch (err) {
+        yield session.abortTransaction();
+        yield session.endSession();
     }
 });
 exports.userService = {

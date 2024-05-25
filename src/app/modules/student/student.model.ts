@@ -100,17 +100,17 @@ export const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>(
 
 //virtual
 
-studentSchema.virtual("fullName").get(function () {
-  return (
-    this.name.firstName + " " + this.name.middleName + " " + this.name.lastName
-  );
-});
+// studentSchema.virtual("fullName").get(function () {
+//   return (
+//     this.name.firstName + " " + this.name.middleName + " " + this.name.lastName
+//   );
+// });
 
 //pre save middleware configuration
 
-studentSchema.methods.isUserExists = async function (id: string) {
-  const result = await Student.findOne({ id });
-  return result;
-};
+// studentSchema.methods.isUserExists = async function (id: string) {
+//   const result = await Student.findOne({ id });
+//   return result;
+// };
 
 export const Student = model<TStudent, StudentModel>("Student", studentSchema);
