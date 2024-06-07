@@ -4,10 +4,12 @@ import { userControllers } from "./user.controller";
 
 import { studentValidations } from "../student/student.validation";
 import validateRequest from "../../middleware/validateRequest";
+import { auth } from "../../middleware/auth";
 const router = express.Router();
 
 router.post(
   "/create-user",
+  auth(),
   validateRequest(studentValidations.StudentZodSchema),
   userControllers.createStudent
 );

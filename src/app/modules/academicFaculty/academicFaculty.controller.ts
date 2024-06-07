@@ -16,6 +16,7 @@ const createAcademicFacultyController = catchAsync(async (req, res) => {
 });
 
 const getAcademicFacultyController = catchAsync(async (req, res) => {
+  console.log("test", req.user);
   const result = await academicFacultyServices.getFacultiesFromDB();
   sendResponse(res, {
     statusCode: httpStatus.OK,
