@@ -7,10 +7,14 @@ import jwt from "jsonwebtoken";
 
 import bcrypt from "bcrypt";
 
+const JWT_ACCESS_TOKEN =
+  "0f3dded307d2bba5c9da554e189f0137f322c25d57fbb562616da15c395a2695";
+
 const loginUser = async (payload: TLoginUser) => {
   const isUserExists = await User.findOne({
     id: payload?.id,
   });
+  console.log("user", isUserExists);
   if (!isUserExists) {
     throw new AppError(httpStatus.BAD_REQUEST, "User not found");
   }
@@ -30,7 +34,9 @@ const loginUser = async (payload: TLoginUser) => {
     payload?.password,
     isUserExists?.password
   );
-  console.log(isPasswordMatched);
+  console.log("password", isPasswordMatched);
+
+  console.log("role", isUserExists?.role);
 
   const jwtPayload = {
     user_id: isUserExists?.id,
@@ -41,7 +47,7 @@ const loginUser = async (payload: TLoginUser) => {
     {
       data: jwtPayload,
     },
-    process.env.JWT_ACCESS_TOKEN as string,
+    JWT_ACCESS_TOKEN,
     { expiresIn: "10d" }
   );
   return {

@@ -1,15 +1,15 @@
-import { Model, Types } from 'mongoose';
+import { Model, Types } from "mongoose";
 
-export type TGender = 'male' | 'female' | 'other';
+export type TGender = "male" | "female" | "other";
 export type TBloodGroup =
-  | 'A+'
-  | 'A-'
-  | 'B+'
-  | 'B-'
-  | 'AB+'
-  | 'AB-'
-  | 'O+'
-  | 'O-';
+  | "A+"
+  | "A-"
+  | "B+"
+  | "B-"
+  | "AB+"
+  | "AB-"
+  | "O+"
+  | "O-";
 
 export type TUserName = {
   firstName: string;
@@ -32,6 +32,7 @@ export type TAdmin = {
   permanentAddress: string;
   profileImg?: string;
   isDeleted: boolean;
+  role: string;
 };
 
 export interface AdminModel extends Model<TAdmin> {
